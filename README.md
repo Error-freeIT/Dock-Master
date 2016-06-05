@@ -1,5 +1,5 @@
 # Dock Master
-=====
+
 _An Extensive OS X Dock Profile/Package Tool_
 
 #### Introduction
