@@ -32,7 +32,7 @@ In its current form, Dock Master is a command line tool.
 | Option                            | Description                                                                     | Applies to Package | Default                      | 
 | display_name                      | Name of the profile displayed to the end user                                   | TRUE               | Custom Dock                  | 
 | organization                      | Organisation name (e.g. Error-free IT)                                          | FALSE              |                              | 
-| description                       | Package description                                                             | FALSE              |                              | 
+| description                       | Profile description                                                             | FALSE              |                              | 
 | scope                             | System or User                                                                  | FALSE              | System                       | 
 | contents_immutable                | Prevent dock from being modified                                                |                    | FALSE                        | 
 | merge_with_existing_dock          | Merge with any existing dock items                                              | FALSE              | FALSE                        | 
