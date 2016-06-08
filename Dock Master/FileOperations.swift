@@ -145,7 +145,7 @@ class FileOperation {
             try fileManager.createDirectoryAtPath("\(directory)/scripts", withIntermediateDirectories: true, attributes: nil)
             
             // Generate dock plist.
-            FileOperation().writeDictionaryToFile(dock.generatePlistXML(),filename: "\(target)/payload/com.apple.dock.plist")
+            FileOperation().writeDictionaryToFile(dock.generatePlistXML(),filename: "\(directory)/payload/com.apple.dock.plist")
 
             // Write makepackage.command into root of directory.
             FileOperation().writeStringToFile(makePackageScript, filename: "\(directory)/makepackage.command", makeExecutable: true)

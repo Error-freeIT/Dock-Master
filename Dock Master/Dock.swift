@@ -407,7 +407,7 @@ class Dock {
     // Sets the tile size (maximum icon size). The value can be anywhere between 1 and 256, (larger number = larger tiles). 68 is OS X's default value.
     var dockTileSize: Int?
     var dockTileSizeImmutable: Bool?
-    // Enabled magnification when hovering over dock items. OS X disables this feature by default.
+    // Enable magnification when hovering over dock items. OS X disables this feature by default.
     var dockMagnification: Bool?
     var dockMagnificationImmutable: Bool?
     // Sets the level of magnification when hovering over dock items. The value can be anywhere between 1 and 256, (larger number = larger magnification).
