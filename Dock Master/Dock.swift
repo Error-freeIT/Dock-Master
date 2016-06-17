@@ -431,6 +431,11 @@ class Dock {
     var dockMinimizeIntoApp: Bool?
     var dockMinimizeIntoAppImmutable: Bool?
     
+    // Packages generated apply to existing user accounts (true) or only new user accounts (false).
+    var packageAppliesToExistingUsers = true
+    // Version number of package.
+    var packageVersion = "1.0"
+    
     init(payloadScope: String = "System", payloadDisplayName: String = "Custom Dock", dockContentsImmutable: Bool = false, dockStaticOnly: Bool = false) {
         
         self.payloadScope = payloadScope
@@ -458,10 +463,96 @@ class Dock {
         }
     }
     
+    func generateUniversalXML() -> [String: AnyObject] {
+        var universalXML = [String: AnyObject]()
+        
+        universalXML["contents-immutable"] = dockContentsImmutable
+
+        if let unwrappedDockAddNetworkHome = dockAddNetworkHome {
+            if unwrappedDockAddNetworkHome {
+                universalXML["MCXDockSpecialFolders"] = ["AddDockMCXOriginalNetworkHomeFolder"]
+            }
+        }
+        
+        if let unwrappedDockTileSize = dockTileSize {
+            universalXML["tilesize"] = unwrappedDockTileSize
+        }
+        if let unwrappedDockTileSizeImmutable = dockTileSizeImmutable {
+            universalXML["size-immutable"] = unwrappedDockTileSizeImmutable
+        }
+        
+        if let unwrappedDockMagnification = dockMagnification {
+            universalXML["magnification"] = unwrappedDockMagnification
+        }
+        if let unwrappedDockMagnificationImmutable = dockMagnificationImmutable {
+            universalXML["magnify-immutable"] = unwrappedDockMagnificationImmutable
+        }
+        
+        if let unwrappedDockMagnificationSize = dockMagnificationSize {
+            universalXML["largesize"] = unwrappedDockMagnificationSize
+        }
+        if let unwrappedDockMagnificationSizeImmutable = dockMagnificationSizeImmutable {
+            universalXML["magsize-immutable"] = unwrappedDockMagnificationSizeImmutable
+        }
+        
+        if let unwrappedDockPosition = dockPosition {
+            universalXML["orientation"] = unwrappedDockPosition
+        }
+        if let unwrappedDockPositionImmutable = dockPositionImmutable {
+            universalXML["position-immutable"] = unwrappedDockPositionImmutable
+        }
+        
+        if let unwrappedDockMinimizeEffect = dockMinimizeEffect {
+            universalXML["mineffect"] = unwrappedDockMinimizeEffect
+        }
+        if let unwrappedDockMinimizeEffectImmutable = dockMinimizeEffectImmutable {
+            universalXML["mineffect-immutable"] = unwrappedDockMinimizeEffectImmutable
+        }
+        
+        if let unwrappedDockAnimateAppLaunch = dockAnimateAppLaunch {
+            universalXML["launchanim"] = unwrappedDockAnimateAppLaunch
+        }
+        if let unwrappedDockAnimateAppLaunchImmutable = dockAnimateAppLaunchImmutable {
+            universalXML["launchanim-immutable"] = unwrappedDockAnimateAppLaunchImmutable
+        }
+        
+        if let unwrappedDockAutoHide = dockAutoHide {
+            universalXML["autohide"] = unwrappedDockAutoHide
+        }
+        
+        if let unwrappedDockShowProcessIndicators = dockShowProcessIndicators {
+            universalXML["show-process-indicators"] = unwrappedDockShowProcessIndicators
+        }
+        if let unwrappedDockShowProcessIndicatorsImmutable = dockShowProcessIndicatorsImmutable {
+            universalXML["show-process-indicators-immutable"] = unwrappedDockShowProcessIndicatorsImmutable
+        }
+        
+        if let unwrappedDockMinimizeIntoApp = dockMinimizeIntoApp {
+            universalXML["minimize-to-application"] = unwrappedDockMinimizeIntoApp
+        }
+        if let unwrappedDockMinimizeIntoAppImmutable = dockMinimizeIntoAppImmutable {
+            universalXML["minimize-to-application-immutable"] = unwrappedDockMinimizeIntoAppImmutable
+        }
+        
+        // If dockStaticApps is not empty.
+        if !dockStaticApps.isEmpty {
+            universalXML["static-apps"] = generateCombinedDockItemXML(dockStaticApps)
+        }
+        
+        // If dockStaticOthers is not empty.
+        if !dockStaticOthers.isEmpty {
+            universalXML["static-others"] = generateCombinedDockItemXML(dockStaticOthers)
+        }
+        
+        
+        return universalXML
+        
+    }
+    
     func generateProfileXML() -> [String: AnyObject] {
         
         var profileXML = [String: AnyObject]()
-        var dockPayloadContent = [String: AnyObject]()
+        var dockPayloadContent = generateUniversalXML()
         
         profileXML["PayloadIdentifier"] = payloadIdentifier
         profileXML["PayloadRemovalDisallowed"] = payloadRemovalDisallowed
@@ -485,84 +576,7 @@ class Dock {
         dockPayloadContent["PayloadEnabled"] = dockPayloadEnabled
         dockPayloadContent["PayloadUUID"] = dockPayloadUUID
         dockPayloadContent["PayloadDisplayName"] = dockPayloadDisplayName
-        dockPayloadContent["contents-immutable"] = dockContentsImmutable
         dockPayloadContent["static-only"] = dockStaticOnly
-        
-        if let unwrappedDockAddNetworkHome = dockAddNetworkHome {
-            if unwrappedDockAddNetworkHome {
-                dockPayloadContent["MCXDockSpecialFolders"] = ["AddDockMCXOriginalNetworkHomeFolder"]
-            }
-        }
-        
-        if let unwrappedDockTileSize = dockTileSize {
-            dockPayloadContent["tilesize"] = unwrappedDockTileSize
-        }
-        if let unwrappedDockTileSizeImmutable = dockTileSizeImmutable {
-            dockPayloadContent["size-immutable"] = unwrappedDockTileSizeImmutable
-        }
-        
-        if let unwrappedDockMagnification = dockMagnification {
-            dockPayloadContent["magnification"] = unwrappedDockMagnification
-        }
-        if let unwrappedDockMagnificationImmutable = dockMagnificationImmutable {
-            dockPayloadContent["magnify-immutable"] = unwrappedDockMagnificationImmutable
-        }
-        
-        if let unwrappedDockMagnificationSize = dockMagnificationSize {
-            dockPayloadContent["largesize"] = unwrappedDockMagnificationSize
-        }
-        if let unwrappedDockMagnificationSizeImmutable = dockMagnificationSizeImmutable {
-            dockPayloadContent["magsize-immutable"] = unwrappedDockMagnificationSizeImmutable
-        }
-        
-        if let unwrappedDockPosition = dockPosition {
-            dockPayloadContent["orientation"] = unwrappedDockPosition
-        }
-        if let unwrappedDockPositionImmutable = dockPositionImmutable {
-            dockPayloadContent["position-immutable"] = unwrappedDockPositionImmutable
-        }
-        
-        if let unwrappedDockMinimizeEffect = dockMinimizeEffect {
-            dockPayloadContent["mineffect"] = unwrappedDockMinimizeEffect
-        }
-        if let unwrappedDockMinimizeEffectImmutable = dockMinimizeEffectImmutable {
-            dockPayloadContent["mineffect-immutable"] = unwrappedDockMinimizeEffectImmutable
-        }
-        
-        if let unwrappedDockAnimateAppLaunch = dockAnimateAppLaunch {
-            dockPayloadContent["launchanim"] = unwrappedDockAnimateAppLaunch
-        }
-        if let unwrappedDockAnimateAppLaunchImmutable = dockAnimateAppLaunchImmutable {
-            dockPayloadContent["launchanim-immutable"] = unwrappedDockAnimateAppLaunchImmutable
-        }
-        
-        if let unwrappedDockAutoHide = dockAutoHide {
-            dockPayloadContent["autohide"] = unwrappedDockAutoHide
-        }
-        
-        if let unwrappedDockShowProcessIndicators = dockShowProcessIndicators {
-            dockPayloadContent["show-process-indicators"] = unwrappedDockShowProcessIndicators
-        }
-        if let unwrappedDockShowProcessIndicatorsImmutable = dockShowProcessIndicatorsImmutable {
-            dockPayloadContent["show-process-indicators-immutable"] = unwrappedDockShowProcessIndicatorsImmutable
-        }
-        
-        if let unwrappedDockMinimizeIntoApp = dockMinimizeIntoApp {
-            dockPayloadContent["minimize-to-application"] = unwrappedDockMinimizeIntoApp
-        }
-        if let unwrappedDockMinimizeIntoAppImmutable = dockMinimizeIntoAppImmutable {
-            dockPayloadContent["minimize-to-application-immutable"] = unwrappedDockMinimizeIntoAppImmutable
-        }
-        
-        // If dockStaticApps is not empty.
-        if !dockStaticApps.isEmpty {
-            dockPayloadContent["static-apps"] = generateCombinedDockItemXML(dockStaticApps)
-        }
-        
-        // If dockStaticOthers is not empty.
-        if !dockStaticOthers.isEmpty {
-            dockPayloadContent["static-others"] = generateCombinedDockItemXML(dockStaticOthers)
-        }
         
         profileXML["PayloadContent"] = dockPayloadContent
         
@@ -572,57 +586,11 @@ class Dock {
     
     func generatePlistXML() -> [String: AnyObject] {
         
-        var plistXML = [String: AnyObject]()
-        
-        if let unwrappedDockTileSize = dockTileSize {
-            plistXML["tilesize"] = unwrappedDockTileSize
-        }
-        
-        if let unwrappedDockMagnification = dockMagnification {
-            plistXML["magnification"] = unwrappedDockMagnification
-        }
-        
-        if let unwrappedDockMagnificationSize = dockMagnificationSize {
-            plistXML["largesize"] = unwrappedDockMagnificationSize
-        }
-        
-        if let unwrappedDockPosition = dockPosition {
-            plistXML["orientation"] = unwrappedDockPosition
-        }
-        
-        if let unwrappedDockMinimizeEffect = dockMinimizeEffect {
-            plistXML["mineffect"] = unwrappedDockMinimizeEffect
-        }
-        
-        if let unwrappedDockAnimateAppLaunch = dockAnimateAppLaunch {
-            plistXML["launchanim"] = unwrappedDockAnimateAppLaunch
-        }
-        
-        if let unwrappedDockAutoHide = dockAutoHide {
-            plistXML["autohide"] = unwrappedDockAutoHide
-        }
-        
-        if let unwrappedDockShowProcessIndicators = dockShowProcessIndicators {
-            plistXML["show-process-indicators"] = unwrappedDockShowProcessIndicators
-        }
-        
-        if let unwrappedDockMinimizeIntoApp = dockMinimizeIntoApp {
-            plistXML["minimize-to-application"] = unwrappedDockMinimizeIntoApp
-        }
-        
-        // If dockStaticApps is not empty.
-        if !dockStaticApps.isEmpty {
-            plistXML["static-apps"] = generateCombinedDockItemXML(dockStaticApps)
-        }
+        var plistXML = generateUniversalXML()
         
         // If dockPersistentApps is not empty.
         if !dockPersistentApps.isEmpty {
             plistXML["persistent-apps"] = generateCombinedDockItemXML(dockPersistentApps)
-        }
-        
-        // If dockStaticOthers is not empty.
-        if !dockStaticOthers.isEmpty {
-            plistXML["static-others"] = generateCombinedDockItemXML(dockStaticOthers)
         }
         
         // If dockPersistentOthers is not empty.
@@ -773,6 +741,13 @@ class Dock {
                     }
                     
                 }
+            }
+            
+            if let packageAppliesToExistingUsers = loadedPlist["package_applies_to_existing_users"] as? Bool {
+                templateDock.packageAppliesToExistingUsers = packageAppliesToExistingUsers
+            }
+            if let packageVersion = loadedPlist["package_version"] as? String {
+                templateDock.packageVersion = packageVersion
             }
             
         }

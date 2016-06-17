@@ -63,7 +63,7 @@ class FileOperation {
             "IDENTIFIER=\"au.com.errorfreeit.dockmaster.${NAME}\"\n\n" +
             
             "# Package version.\n" +
-            "VERSION=\"1.0\"\n\n" +
+            "VERSION=\"\(dock.packageVersion)\"\n\n" +
 
             "# The User Template directory is applied to new user accounts. The dock plist placed in this directory will be copied into new accounts.\n" +
             "INSTALL_LOCATION=\"/System/Library/User Template/English.lproj/Library/Preferences/\"\n\n" +
@@ -84,10 +84,12 @@ class FileOperation {
             "    \"${SCRIPT_PATH}/package/${NAME}-${VERSION}.pkg\""
         
         
-        let postInstallScript =  "#!/bin/bash\n\n" +
+        let applyDockToExisitingUsers = dock.packageAppliesToExistingUsers ? "true" : "false"
+
+        let postInstallScript = "#!/bin/bash\n\n" +
         
             "# Apply dock to existing user accounts.\n" +
-            "APPLY_DOCK_TO_EXISTING_USERS=true\n\n" +
+            "APPLY_DOCK_TO_EXISTING_USERS=\(applyDockToExisitingUsers)\n\n" +
         
             "### NOTHING BELOW THIS LINE NEEDS TO CHANGE ###\n\n" +
 
@@ -104,7 +106,7 @@ class FileOperation {
             "    do\n" +
             "        # Extract account name (a.k.a. username) from home directory path.\n" +
             "        ACCOUNT_NAME=$(/usr/bin/basename \"${USER_HOME}\")\n\n" +
-
+        
             "        # If account name is not \"Shared\".\n" +
             "        if [[ \"$ACCOUNT_NAME\" != \"Shared\" ]]\n" +
             "        then\n" +
@@ -125,10 +127,10 @@ class FileOperation {
         
             "            # Reboot the dock if a user is currently logged in.\n" +
             "            if [[ \"$CURRENTLY_LOGGED_IN_USER\" == \"$ACCOUNT_NAME\" ]]\n" +
-            "            then" +
+            "            then\n" +
             "                # Update cached dock plist.\n" +
             "                /usr/bin/sudo -u \"$ACCOUNT_NAME\" /usr/bin/defaults read \"$USER_DOCK_PLIST\"\n" +
-            "                # Relunch the dock proccess.\n" +
+            "                # Relaunch the dock process.\n" +
             "                /usr/bin/killall Dock\n" +
             "            fi\n" +
             "        fi\n" +

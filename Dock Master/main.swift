@@ -14,8 +14,8 @@ var templateFile = String()
 var target = String()
 
 func displayHelp() {
-    print("Dock Master v0.7\n" +
-        "Created by Michael Page on 2/06/2016.\n" +
+    print("Dock Master v0.8\n" +
+        "Created by Michael Page on 15/06/2016.\n" +
         "Copyright © 2016 Error-free IT. All rights reserved.\n\n" +
 
         "Dock Master is a tool for generating dock profiles and dock packages.\n\n" +
