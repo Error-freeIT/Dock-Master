@@ -10,7 +10,9 @@ Originally Dock Master was written in PHP and hosted on the [Error-free IT websi
 
 #### Usage
 
-In its current form, Dock Master is a command line tool.
+In its current form, Dock Master is a command-line tool.
+
+Note: If you are uncomfortable with the command-line or just want something more user-friendly try out the web interface of Dock Master [here](http://errorfreeit.com.au/blog/2015/4/28/dock-master).
 
 1. Install the [latest Dock Master.pkg](https://github.com/Error-freeIT/Dock-Master/releases/latest).
 
@@ -41,11 +43,12 @@ In its current form, Dock Master is a command line tool.
 | tile_size_immutable               | Lock tile_size                                                                  | FALSE              | FALSE                        | 
 | magnification                     | Magnification when hovering over items                                          | TRUE               | FALSE                        | 
 | magnification_immutable           | Lock magnification                                                              | FALSE              | FALSE                        | 
-| magnification_size                | The level of magnification when hovering over items. Value: 1-256               | TRUE               | 0                            | 
+| magnification_size                | The level of magnification when hovering over items. Value: 1-256               | TRUE               | 128                        | 
 | magnification_size_immutable      | Lock magnification_size                                                         | FALSE              | FALSE                        | 
 | position                          | Position of the dock. Value: left, bottom or right                              | TRUE               | bottom                       | 
 | position_immutable                | Lock position                                                                   | FALSE              | FALSE                        | 
 | minimize_effect                   | Minimise effect. Value: genie or scale                                          | TRUE               | genie                        | 
+| minimize_effect_immutable         | Lock minimize_effect                                                            | FALSE               | FALSE                        | 
 | animate_app_launch                | Applications animate (bounce) on open                                           |                    | TRUE                         | 
 | animate_app_launch_immutable      | Lock animate_app_launch                                                         | FALSE              | FALSE                        | 
 | auto_hide                         | Dock hides and only appears on hover                                            | TRUE               | FALSE                        | 
@@ -59,11 +62,3 @@ In its current form, Dock Master is a command line tool.
 | arrangement                       | Sort by. Value: 1=Name, 2=Date Added, 3=Date Modified, 4=Date Created or 5=Kind | TRUE               | 1                            | 
 | show_as                           | View content as. Value: 1=Fan, 2=Grid, 3=List or 4=Automatic                    | TRUE               | 4                            | 
 | display_as                        | Display as. Value: 1=Folder or 2=Stack                                          | TRUE               | 2                            | 
-
-
-
-
-
-#### To Do
-
-User Interface
