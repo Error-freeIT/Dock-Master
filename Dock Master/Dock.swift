@@ -35,22 +35,6 @@ class DockItem {
         }
     }
     
-    // Application name without .app extension (e.g. Safari).
-    var fileLabel: String? {
-        get {
-            // If dock item is an app.
-            if tileType == "file-tile" {
-                if let unwrappedCfurlString = cfurlString {
-                    let path = NSString(string: unwrappedCfurlString)
-                    // Remove .app and extract the last part of the file path (e.g. Safari).
-                    let appName = path.lastPathComponent
-                    return appName
-                }
-            }
-            return nil
-        }
-    }
-    
     // If the dock items cfurlString starts with ~ this key will be set to the value of cfurlString,
     private var _homeDirectoryRelative: String = ""
     var homeDirectoryRelative: String? {
@@ -247,10 +231,8 @@ class DockItem {
     func generateDockItemXML() -> [String: AnyObject] {
         
         /*
-         let appStructure = ["mcx_typehint":mcxTypeHint!,
-                             "tile-type":tileType!,
+         let appStructure = ["tile-type":tileType!,
                              "tile-data":
-                                 ["file-label":fileLabel!,
                                   "file-data":
                                      ["_CFURLString":cfurlString!,
                                       "_CFURLStringType":cfurlStringType!
@@ -258,8 +240,7 @@ class DockItem {
                                  ]
                              ]
          
-         let shareStructure = ["mcx_typehint":mcxTypeHint!,
-                               "tile-type":tileType!,
+         let shareStructure = ["tile-type":tileType!,
                                "tile-data":
                                    ["label":label!,
                                     "url":
@@ -270,10 +251,9 @@ class DockItem {
                                ]
          
          
-         let directoryStructure = ["mcx_typehint":mcxTypeHint!,
-                                   "tile-type":tileType!,
+         let directoryStructure = ["tile-type":tileType!,
                                    "tile-data":
-                                       ["file-label":fileLabel!,
+                                       ["label":label!,
                                         "home directory relative":homeDirectoryRelative!,
                                         "arrangement":arrangement!,
                                         "displayas":displayAs!,
@@ -286,14 +266,9 @@ class DockItem {
         var tileData = [String: AnyObject]()
         var fileData = [String: AnyObject]()
         
-        //dockItemXML["mcx_typehint"] = mcxTypeHint
-        
         dockItemXML["tile-type"] = tileType
         
         // ["tile-data"]
-        if let unwrappedFileLabel = fileLabel {
-            tileData["file-label"] = unwrappedFileLabel
-        }
         if let unwrappedhomeDirectoryRelative = homeDirectoryRelative {
             tileData["home directory relative"] = unwrappedhomeDirectoryRelative
         }
@@ -578,7 +553,8 @@ class Dock {
         dockPayloadContent["PayloadDisplayName"] = dockPayloadDisplayName
         dockPayloadContent["static-only"] = dockStaticOnly
         
-        profileXML["PayloadContent"] = dockPayloadContent
+        let dockPayloadContentArray: Array<AnyObject> = [dockPayloadContent]
+        profileXML["PayloadContent"] = dockPayloadContentArray
         
         return profileXML
         
