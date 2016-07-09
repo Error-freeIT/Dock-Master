@@ -38,7 +38,7 @@ Note: If you are uncomfortable with the command-line or just want something more
 | scope                             | System or User                                                                  | FALSE              | System                       | 
 | contents_immutable                | Prevent dock from being modified                                                | TRUE           | FALSE                        | 
 | merge_with_existing_dock          | Merge with any existing dock items                                              | TRUE               | FALSE                        | 
-| add_network_home                  | Adds the user's network home folder to the dock                                 |                    | FALSE                        | 
+| add_network_home                  | Adds the user's network home folder to the dock                                 | TRUE                   | FALSE                        | 
 | tile_size                         | Maximum icon size. Value: 1-256                                                 | TRUE               | 68                           | 
 | tile_size_immutable               | Lock tile_size                                                                  | TRUE               | FALSE                        | 
 | magnification                     | Magnification when hovering over items                                          | TRUE               | FALSE                        | 
@@ -49,7 +49,7 @@ Note: If you are uncomfortable with the command-line or just want something more
 | position_immutable                | Lock position                                                                   | TRUE               | FALSE                        | 
 | minimize_effect                   | Minimise effect. Value: genie or scale                                          | TRUE               | genie                        | 
 | minimize_effect_immutable         | Lock minimize_effect                                                            | TRUE                | FALSE                        | 
-| animate_app_launch                | Applications animate (bounce) on open                                           |                    | TRUE                         | 
+| animate_app_launch                | Applications animate (bounce) on open                                           | TRUE                   | TRUE                         | 
 | animate_app_launch_immutable      | Lock animate_app_launch                                                         | TRUE               | FALSE                        | 
 | auto_hide                         | Dock hides and only appears on hover                                            | TRUE               | FALSE                        | 
 | show_process_indicators           | Display a dot to indicate the application is running                            | TRUE           | TRUE                         | 
