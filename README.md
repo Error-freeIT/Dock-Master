@@ -36,26 +36,26 @@ Note: If you are uncomfortable with the command-line or just want something more
 | organization                      | Organisation name (e.g. Error-free IT)                                          | FALSE              |                              | 
 | description                       | Profile description                                                             | FALSE              |                              | 
 | scope                             | System or User                                                                  | FALSE              | System                       | 
-| contents_immutable                | Prevent dock from being modified                                                |                    | FALSE                        | 
-| merge_with_existing_dock          | Merge with any existing dock items                                              | FALSE              | FALSE                        | 
+| contents_immutable                | Prevent dock from being modified                                                | TRUE           | FALSE                        | 
+| merge_with_existing_dock          | Merge with any existing dock items                                              | TRUE               | FALSE                        | 
 | add_network_home                  | Adds the user's network home folder to the dock                                 |                    | FALSE                        | 
 | tile_size                         | Maximum icon size. Value: 1-256                                                 | TRUE               | 68                           | 
-| tile_size_immutable               | Lock tile_size                                                                  | FALSE              | FALSE                        | 
+| tile_size_immutable               | Lock tile_size                                                                  | TRUE               | FALSE                        | 
 | magnification                     | Magnification when hovering over items                                          | TRUE               | FALSE                        | 
-| magnification_immutable           | Lock magnification                                                              | FALSE              | FALSE                        | 
+| magnification_immutable           | Lock magnification                                                              | TRUE               | FALSE                        | 
 | magnification_size                | The level of magnification when hovering over items. Value: 1-256               | TRUE               | 128                        | 
-| magnification_size_immutable      | Lock magnification_size                                                         | FALSE              | FALSE                        | 
+| magnification_size_immutable      | Lock magnification_size                                                         | TRUE               | FALSE                        | 
 | position                          | Position of the dock. Value: left, bottom or right                              | TRUE               | bottom                       | 
-| position_immutable                | Lock position                                                                   | FALSE              | FALSE                        | 
+| position_immutable                | Lock position                                                                   | TRUE               | FALSE                        | 
 | minimize_effect                   | Minimise effect. Value: genie or scale                                          | TRUE               | genie                        | 
-| minimize_effect_immutable         | Lock minimize_effect                                                            | FALSE               | FALSE                        | 
+| minimize_effect_immutable         | Lock minimize_effect                                                            | TRUE                | FALSE                        | 
 | animate_app_launch                | Applications animate (bounce) on open                                           |                    | TRUE                         | 
-| animate_app_launch_immutable      | Lock animate_app_launch                                                         | FALSE              | FALSE                        | 
+| animate_app_launch_immutable      | Lock animate_app_launch                                                         | TRUE               | FALSE                        | 
 | auto_hide                         | Dock hides and only appears on hover                                            | TRUE               | FALSE                        | 
-| show_process_indicators           | Display a dot to indicate the application is running                            |                    | TRUE                         | 
-| show_process_indicators_immutable | Lock show_process_indicators                                                    | FALSE              | FALSE                        | 
-| minimize_into_app                 | Windows minimise into their respective app icon                                 |                    | FALSE                        | 
-| minimize_into_app_immutable       | Lock minimize_into_app                                                          | FALSE              | FALSE                        | 
+| show_process_indicators           | Display a dot to indicate the application is running                            | TRUE           | TRUE                         | 
+| show_process_indicators_immutable | Lock show_process_indicators                                                    | TRUE              | FALSE                        | 
+| minimize_into_app                 | Windows minimise into their respective app icon                                 | TRUE           | FALSE                        | 
+| minimize_into_app_immutable       | Lock minimize_into_app                                                          | TRUE              | FALSE                        | 
 | cfurl_string                      | Path to App or resource                                                         | TRUE               |                              | 
 | removable                         | Dock item can be removed                                                        | TRUE               | FALSE                        | 
 | label                             | Specify a label (e.g. Network Resources)                                        | TRUE               | Extracted from cfurl_string  | 
