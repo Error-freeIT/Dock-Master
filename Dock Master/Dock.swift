@@ -11,7 +11,7 @@ import Foundation
 
 class DockItem {
     
-    // tile-type will either be directory-tile: local directory, file-tile: application, url-tile: URL or network share.
+    // tile-type will either be directory-tile: local directory, file-tile: application/webloc, url-tile: URL or network share.
     var tileType: String? {
         get {
             func returnTileType(target: String) -> String {
@@ -423,7 +423,7 @@ class Dock {
     
     // Add a new dock item to dock array.
     func addNewDockItem(dockItem: DockItem) {
-        if dockItem.tileType == "file-tile" {
+        if dockItem.tileType == "file-tile" && !dockItem._cfurlString.hasSuffix(".webloc") {
             if dockItem.removable {
                 self.dockPersistentApps.append(dockItem)
             } else {
