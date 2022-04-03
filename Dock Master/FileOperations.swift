@@ -97,7 +97,7 @@ class FileOperation {
             "USER_TEMPLATE_DOCK_PLIST=\"/System/Library/User Template/English.lproj/Library/Preferences/com.apple.dock.plist\"\n\n" +
 
             "# Currently logged in user.\n" +
-            "CURRENTLY_LOGGED_IN_USER=$(/usr/bin/python -c 'from SystemConfiguration import SCDynamicStoreCopyConsoleUser; import sys; username = (SCDynamicStoreCopyConsoleUser(None, None, None) or [None])[0]; username = [username,\"\"][username in [u\"loginwindow\", None, u\"\"]]; sys.stdout.write(username + \"\\n\");')\n\n" +
+            "CURRENTLY_LOGGED_IN_USER=$(/bin/ls -l /dev/console | /usr/bin/awk '{ print $3 }')\n\n" +
 
             "if [[ \"$APPLY_DOCK_TO_EXISTING_USERS\" == \"true\" ]]\n" +
             "then\n" +
