@@ -2,6 +2,16 @@
 
 _An Extensive OS X Dock Profile/Package Tool_
 
+> ## Dock Master Has Evolved — Introducing **Dock Composer**
+>
+> Over the past few years, I’ve been steadily working on a complete rewrite of Dock Master in my spare time.  
+> **Dock Composer** is the result — a fully native macOS app with a heap of new features, making it easier than ever to build and customise your Dock.
+>
+> 🎉 You can grab it today on the Mac App Store:  
+> **https://apps.apple.com/au/app/dock-composer/id6751523907?mt=12**
+>
+> _This repository is now archived and no longer maintained._
+
 #### Introduction
 
 Dock Master is a tool for generating dock profiles and dock packages.
